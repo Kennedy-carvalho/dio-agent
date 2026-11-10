@@ -1,4 +1,4 @@
-# 🤖 DIO Agent
+# 🤖 DIO Agent 
 
 > Seu mentor com Inteligência Artificial para aprender mais e melhor na [DIO](https://dio.me).
 
@@ -18,7 +18,99 @@ Esses e outros termos estão no [Glossário](docs/glossary.md).
 
 ---
 
-## 🚀 Comece em 3 passos
+## Projeto DIO do Bootcamp Cybersegurança do Santander
+
+### Autor: Kennedy Anderson
+### Instrutora: Isadora Ferrão
+### Ano: 2026
+
+A partir dessa base, desenvolvi uma adaptação com foco em cibersegurança defensiva como projeto do Bootcamp de Cibersegurança do Santander.
+
+**Autor da adaptação:** Kennedy Anderson
+
+---
+
+## Sobre o projeto
+
+Este projeto evolui o DIO Agent para atuar como um mentor de cibersegurança, com foco em análise defensiva de vulnerabilidades. A proposta é que o agente não sugira ações automaticamente: primeiro, ele deve entender o contexto e confirmar que a análise acontece em um ambiente autorizado e controlado; depois, deve explicar os riscos e orientar possíveis correções.
+
+A especialização foi criada com arquivos de instrução e conhecimento, sem treinar um modelo. O projeto inclui:
+
+- a skill de análise defensiva em `skills/vulnerability-analysis/`, com `SKILL.md` para orientar o agente e `README.md` para explicar a skill;
+- fundamentos de segurança em `agent/knowledge/security-basics.md`, incluindo vulnerabilidade, ameaça, risco, tríade CID e boas práticas;
+- orientações de segurança em `agent/persona.md` e registro da skill e do conhecimento no `AGENTS.md`;
+- um exemplo de login em `agent/app.py`, corrigido para usar consulta parametrizada contra SQL Injection.
+
+Também testei o Hermes com um cenário hipotético de servidor Ubuntu. Antes de sugerir comandos, ele perguntou sobre autorização, escopo, objetivo e limites da análise. Os testes foram limitados a código de laboratório e cenários hipotéticos.
+
+### O que este projeto pretende demonstrar
+
+- como especializar um agente usando skills, arquivos de conhecimento e instruções;
+- como conduzir uma análise de segurança com contexto e autorização;
+- como identificar, corrigir e validar uma vulnerabilidade em um exemplo controlado;
+- como documentar o processo e as decisões tomadas.
+
+### Como executar no Hermes
+
+1. Abra no VS Code a pasta do projeto que contém o arquivo `AGENTS.md`.
+2. Abra um terminal integrado em **Terminal > Novo Terminal**. Confirme que ele está dentro da pasta `dio-agent`.
+3. Digite `hermes` e pressione **Enter**.
+4. Quando o Hermes iniciar, peça uma análise da skill ou do código de laboratório, explicando seu objetivo.
+
+Use somente código e ambientes próprios ou autorizados. Antes de qualquer teste ativo, confirme a autorização e o escopo.
+
+### Melhoria escolhida: relatório em formato consistente
+
+A skill organiza cada análise num formato consistente para facilitar a compreensão e a comparação dos riscos. O relatório separa **impacto** e **probabilidade**, apresenta a **severidade** com base nas evidências disponíveis e inclui **evidências**, **recomendações de correção** e uma forma segura de **validar a correção**. Quando faltam informações, a análise indica essa limitação em vez de inventar uma classificação.
+
+## Evidências
+
+![Hermes instalado e funcionando](docs/evidencias/hermes-instalado6.png)
+
+<details>
+<summary>Ver todas as evidências da instalação do Hermes</summary>
+
+![Hermes instalado](docs/evidencias/hermes-instalado.png)
+![Hermes instalado — cópia](docs/evidencias/hermes-instalado.png)
+![Etapa da instalação 1](docs/evidencias/hermes-instalado1.png)
+![Etapa da instalação 2](docs/evidencias/hermes-instalado2.png)
+![Etapa da instalação 3](docs/evidencias/hermes-instalao3.png)
+![Etapa da instalação 4](docs/evidencias/hermes-intslado4.png)
+![Etapa da instalação 5](docs/evidencias/hermes-instalado5.png)
+
+</details>
+
+### 1. Análise inicial
+
+O Hermes identificou a montagem insegura da consulta SQL e explicou o risco no exemplo de laboratório.
+
+![Análise inicial do app.py](docs/evidencias/app.py-analise-inicial.png.)
+
+### 2. Código corrigido
+
+A consulta foi alterada para usar parâmetros, separando os dados digitados da instrução SQL.
+
+![Código corrigido](docs/evidencias/app.py-correcao-vulneravel.png)
+
+### 3. Validação da correção
+
+Na nova análise, o Hermes confirmou que a consulta usa parâmetros e que a concatenação direta não está mais presente.
+
+![Validação da correção](docs/evidencias/app-py-validacao-correcao.png)
+
+### 4. Teste de autorização e escopo
+![Hermes perguntando sobre autorização e escopo](docs/evidencias/test-hermes-com-skill.png)
+
+No cenário hipotético de um servidor Ubuntu, o Hermes perguntou sobre autorização, escopo e objetivo antes de sugerir ações.
+
+### Validação da correção de SQL Injection com a nova skill
+
+No exemplo de laboratório, a consulta foi parametrizada e o Hermes confirmou que a concatenação direta dos dados não está mais presente. Esta evidência mostra a mitigação dessa falha específica; não significa que o login esteja pronto para produção.
+
+![Validação da correção de SQL Injection](docs/evidencias/app.py-sql-injection.png.png)
+
+
+---
 
 ### 1️⃣ Instale um harness
 
@@ -57,6 +149,7 @@ Fale naturalmente, com as suas palavras. Nas primeiras vezes, vale usar um dos [
 | [Pesquisa na web](skills/web-search/SKILL.md) | Responde dúvidas atuais (versões, lançamentos, mercado) com fontes citadas | "Qual a versão estável do Node hoje?" |
 | [Revisão de portfólio](skills/portfolio-review/SKILL.md) | Dá feedback sobre o seu portfólio e GitHub antes de buscar vagas | "O que falta no meu GitHub para uma vaga júnior?" |
 | [Caminho AI Builder](skills/ai-builder-path/SKILL.md) | Ajuda você a escolher o próximo passo na Carreira AI Builder | "Qual Formação AI Builder combina comigo?" |
+| [Análise de vulnerabilidades](skills/vulnerability-analysis/SKILL.md) | Analisa vulnerabilidades, avalia riscos e orienta correções em ambientes autorizados | "Analise este código e me ajude a entender os riscos e como corrigi-los." |
 
 A pesquisa na web usa a busca do seu harness. Se ele não tiver busca própria, veja [como conectar o You.com](docs/youcom-mcp.md), que tem uma opção gratuita.
 
@@ -140,3 +233,7 @@ Tem uma ideia de skill? Veja [como criar uma skill](skills/README.md) e abra um 
 O DIO Agent foi criado para acompanhar você nos Bootcamps e Formações da DIO. A ideia é simples: aprender na era da IA fica mais fácil quando você tem um mentor disponível a qualquer hora.
 
 Bons estudos, e vem com a gente. 🚀
+
+## Créditos
+Este projeto é um fork do [DIO Agent](https://github.com/digitalinnovationone/dio-agent), criado pela Digital Innovation One.
+
